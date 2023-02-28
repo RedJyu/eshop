@@ -1,6 +1,7 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send(`
@@ -15,11 +16,11 @@ app.get('/', (req, res) => {
   `);
 });
 
-app.post('/', bodyParser.urlencoded({ extended: true }), (req, res) => {
+app.post('/', (req, res) => {
   console.log(req.body);
   res.send('success');
 });
 
 app.listen(3000, () => {
-  console.log('works!');
+  console.log('yey!');
 });
