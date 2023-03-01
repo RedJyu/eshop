@@ -1,7 +1,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
 
-class UserRepository {
+class userRepository {
   constructor(filename) {
     if (!filename) {
       throw new Error('creating repo requires filename');
@@ -29,6 +29,7 @@ class UserRepository {
     const data = await this.getAll();
     data.push(att);
     await this.writeALL(data);
+    return att;
   }
   async writeALL(data) {
     // null(custom format) and 2 used to format data in users.json into more readable format
@@ -70,13 +71,5 @@ class UserRepository {
     }
   }
 }
-
-const test = async () => {
-  const repo = new UserRepository('users.json');
-  //   await repo.create({ email: 'test@test.pl', password: 'testPassword' });
-  //   const users = await repo.getAll();
-  //   await repo.update('c016b43f', { password: 'newPassword' });
-  const user = await repo.getOneBy({ password: 'newPassword' });
-  console.log(user);
-};
-test();
+// module.exports = new UserRepository('users.json')
+export default new userRepository('users.json');
