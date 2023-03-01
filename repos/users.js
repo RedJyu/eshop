@@ -1,5 +1,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
+import util from 'util';
+const scrypt = util.promisify(crypto.scrypt);
 
 class userRepository {
   constructor(filename) {
@@ -26,10 +28,15 @@ class userRepository {
   //   att = email,password,id etc
   async create(att) {
     att.id = this.randomId();
+    // salt
+    const salt = crypto.randomBytes(8).toString('hex');
+    const hashed = await scrypt(att.password, salt, 64);
+
     const data = await this.getAll();
-    data.push(att);
+    const pass = { ...att, password: `${hashed.toString('hex')}.${salt}` };
+    data.push(pass);
     await this.writeALL(data);
-    return att;
+    return pass;
   }
   async writeALL(data) {
     // null(custom format) and 2 used to format data in users.json into more readable format
@@ -71,5 +78,5 @@ class userRepository {
     }
   }
 }
-// module.exports = new UserRepository('users.json')
+
 export default new userRepository('users.json');
