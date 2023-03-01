@@ -38,6 +38,15 @@ class userRepository {
     await this.writeALL(data);
     return pass;
   }
+  // password
+
+  async passwordCheck(saved, supplied) {
+    const [hashed, salt] = saved.split('.');
+    const hashedSuppliedBuf = await scrypt(supplied, salt, 64);
+    return hashed === hashedSuppliedBuf.toString('hex');
+  }
+
+  ///////////////////////////////////
   async writeALL(data) {
     // null(custom format) and 2 used to format data in users.json into more readable format
     await fs.promises.writeFile(this.filename, JSON.stringify(data, null, 2));

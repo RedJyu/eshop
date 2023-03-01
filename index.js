@@ -60,10 +60,15 @@ app.get('/signin', (req, res) => {
 app.post('/signin', async (req, res) => {
   const { email, password } = req.body;
   const user = await usersRepository.getOneBy({ email });
+
   if (!user) {
     return res.send('Email not found');
   }
-  if (user.password !== password) {
+  const validPassword = await usersRepository.passwordCheck(
+    user.password,
+    password
+  );
+  if (!validPassword) {
     return res.send('invalid password');
   }
   req.session.userID = user.id;
