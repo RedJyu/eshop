@@ -1,5 +1,9 @@
+import template from '../layout.js';
+
 const signupH = ({ req }) => {
-  return `<div>
+  return template({
+    content: `
+<div>
 Your ID is ${req.session.userID}
   <form method='POST'>
     <input name='email' placeholder='email' />
@@ -7,6 +11,8 @@ Your ID is ${req.session.userID}
     <input name='passwordConfirmation' placeholder='password confirmation' />
     <button>Sign Up</button>
   </form>
-</div>`;
+</div>
+`,
+  });
 };
 export default signupH;
