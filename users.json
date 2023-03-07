@@ -16,5 +16,10 @@
     "email": "admin3@test.pl",
     "password": "d1016981ac4923b4647cec2f7cebe7426c189d2b4e75e494e484ba0e1fee25daa387dd0320fd4b0dd5b71a03ea5a66bc3b2c393ed9798ec25aad8e887b348a6b.dee1018c07075fa2",
     "id": "9e7cc343"
+  },
+  {
+    "email": "test@test.com",
+    "password": "ec2d949fc285abbc40653562bdbf71243194a41efd2871de7aa001611f9891e6e31fbe19b9bb04aaefb0ddbd032db421bb50063a14bc066f4681da9911fea93b.406ae01b06825cf0",
+    "id": "bfb70c6d"
   }
 ]
