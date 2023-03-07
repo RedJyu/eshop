@@ -1,9 +1,9 @@
 import express from 'express';
-import { check, validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 import usersRepository from '../../repos/users.js';
 import signupH from '../../display/admin/auth/signup.js';
 import signinH from '../../display/admin/auth/signin.js';
-import validator from './validators.js';
+import { validator, validatorSignIn } from './validators.js';
 
 const router = express.Router();
 
@@ -28,23 +28,16 @@ router.get('/signout', (req, res) => {
 });
 
 router.get('/signin', (req, res) => {
-  res.send(signinH());
+  res.send(signinH({}));
 });
 
-router.post('/signin', async (req, res) => {
-  const { email, password } = req.body;
+router.post('/signin', validatorSignIn, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.send(signinH({ errors }));
+  }
+  const { email } = req.body;
   const user = await usersRepository.getOneBy({ email });
-
-  if (!user) {
-    return res.send('Email not found');
-  }
-  const validPassword = await usersRepository.passwordCheck(
-    user.password,
-    password
-  );
-  if (!validPassword) {
-    return res.send('invalid password');
-  }
   req.session.userID = user.id;
   res.send('Signed In');
 });

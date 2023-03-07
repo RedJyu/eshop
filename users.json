@@ -1,13 +1,5 @@
 [
   {
-    "email": "test@test.com"
-  },
-  {
-    "email": "admin@test.com",
-    "password": "Admin123",
-    "id": "a7684bd5"
-  },
-  {
     "email": "admin2@test.pl",
     "password": "cb92631dd5a0ba32e0628ef9af71ebf85d56bdfdc07a4e48d4c9903dd9720643d3c962d10fb61d186748402132373879311369ca27131037d9ed191f0559b2f8.466fcd2ee286929c",
     "id": "3cec7642"
