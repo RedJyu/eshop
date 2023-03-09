@@ -1,5 +1,6 @@
 import express from 'express';
 import router from './routes/admin/auth.js';
+import prodRouter from './routes/admin/products.js';
 import cookieSession from 'cookie-session';
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(
 );
 
 app.use(router);
-
+app.use(prodRouter);
 app.listen(3000, () => {
   console.log('yey!');
 });
